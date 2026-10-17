@@ -1,0 +1,631 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#6254e8">
+<title>SkillBridge AI | Career & Skills Platform</title>
+<style>
+:root{--bg:#f5f7fc;--surface:#fff;--text:#202844;--muted:#68738b;--primary:#6254e8;--light:#eeeaff;--border:#e3e7f0;--success:#16865b;--shadow:0 8px 28px rgba(30,40,80,.07)}
+body.dark{--bg:#121729;--surface:#1c2439;--text:#f2f4ff;--muted:#b0bad0;--primary:#a49aff;--light:#302d53;--border:#343e57;--success:#63d9a5;--shadow:0 8px 28px rgba(0,0,0,.15)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:110px}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif;line-height:1.6;transition:.2s}
+button,input,select,textarea{font:inherit}
+button,a{cursor:pointer}a{color:var(--primary)}
+header{position:sticky;top:0;z-index:100;background:var(--surface);border-bottom:1px solid var(--border)}
+.navbar{max-width:1300px;margin:auto;padding:12px 22px;display:flex;justify-content:space-between;align-items:center;gap:18px}
+.brand{color:var(--primary);text-decoration:none;font-size:22px;font-weight:800;white-space:nowrap}
+.brand span{color:var(--text)}
+.nav-links{display:flex;flex-wrap:wrap;gap:5px;align-items:center}
+.nav-links a,.nav-links button{border:0;color:var(--text);background:transparent;text-decoration:none;padding:8px 10px;border-radius:8px;font-size:13px}
+.nav-links a:hover,.nav-links button:hover,.nav-links a.current{color:var(--primary);background:var(--light)}
+.container{max-width:1200px;margin:auto;padding:30px 22px}
+.hero{padding:65px 35px;border-radius:25px;background:linear-gradient(125deg,#5144d8,#8069e9,#b8a1f5);color:white;text-align:center;box-shadow:var(--shadow)}
+.hero h1{font-size:clamp(32px,5vw,51px);line-height:1.15;margin:10px 0}
+.hero p{max-width:690px;margin:12px auto 0;font-size:17px}
+.eyebrow{font-size:12px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase}
+.hero .btn{background:white;color:#5144d8;margin-top:20px}
+section{padding-top:18px;margin-bottom:30px}
+.section-heading{margin-bottom:22px}
+.section-heading h2{margin:0 0 5px;font-size:28px}
+.section-heading p,.muted{color:var(--muted)}
+.section-heading p{margin:0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(235px,1fr));gap:18px}
+.card,.skill-card{background:var(--surface);border:1px solid var(--border);border-radius:17px;padding:21px;box-shadow:var(--shadow);min-width:0}
+.card h3,.skill-card h3{margin:7px 0}
+.card p,.skill-card p{color:var(--muted)}
+.card-icon{font-size:29px}
+.tag{display:inline-block;background:var(--light);color:var(--primary);border-radius:20px;padding:4px 10px;margin:3px 4px 3px 0;font-size:12px}
+.btn{display:inline-block;border:0;border-radius:9px;background:var(--primary);color:white;text-decoration:none;padding:10px 15px;font-weight:700;font-size:14px;transition:transform .15s,opacity .15s}
+.btn:hover{opacity:.88;transform:translateY(-1px)}
+.btn.secondary{background:var(--light);color:var(--primary)}
+.btn.outline{background:transparent;color:var(--primary);border:1px solid var(--border)}
+.btn-row{display:flex;flex-wrap:wrap;gap:9px;margin-top:14px}
+input,select,textarea{width:100%;padding:11px 12px;border:1px solid var(--border);background:var(--surface);color:var(--text);border-radius:9px;margin:5px 0 12px}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--primary);outline-offset:1px}
+label{display:block;font-weight:700;font-size:13px}
+textarea{resize:vertical;min-height:90px}
+.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 15px}
+.full-width{grid-column:1/-1}
+.notice{background:var(--light);border-radius:12px;padding:17px;color:var(--text);margin-top:15px}
+.quote-card{border-left:4px solid var(--primary);font-size:17px;font-weight:600}
+.progress-track{background:var(--border);height:10px;border-radius:20px;overflow:hidden;margin:12px 0}
+.progress-fill{width:0;height:100%;background:var(--primary);transition:width .3s}
+.roadmap-step{display:flex;gap:14px;padding:15px 0;border-bottom:1px solid var(--border)}
+.step-number{min-width:34px;height:34px;border-radius:50%;background:var(--light);color:var(--primary);display:grid;place-items:center;font-weight:800}
+.roadmap-step h3{margin:0}
+.roadmap-step p{margin:4px 0;color:var(--muted)}
+.quiz-option{display:block;padding:11px;margin:8px 0;border:1px solid var(--border);border-radius:9px;cursor:pointer}
+.quiz-option:hover{border-color:var(--primary)}
+.quiz-option input{width:auto;margin:0 8px 0 0}
+.feedback{margin-top:12px;font-weight:700}
+footer{text-align:center;padding:28px 15px;color:var(--muted);border-top:1px solid var(--border)}
+.hidden{display:none!important}
+.small-note{font-size:13px;color:var(--muted)}
+.app-section{display:none}
+.app-section.active{display:block}
+body.home-view #home .btn,body.home-view #profile .btn-row,body.home-view #thought .btn{display:none!important}
+.skills-intro{max-width:760px;margin-bottom:25px}
+.skill-card{padding:25px;transition:transform .2s,border-color .2s}
+.skill-card:hover,.career-card:hover{transform:translateY(-3px);border-color:var(--primary)}
+.skill-top{display:flex;align-items:center;gap:14px;margin-bottom:16px}
+.skill-icon{width:54px;height:54px;flex-shrink:0;display:grid;place-items:center;border-radius:14px;font-size:27px}
+.skill-number{font-size:11px;color:var(--muted);font-weight:800;letter-spacing:1px}
+.skill-card h3{font-size:19px}
+.skill-card p{font-size:14px;line-height:1.7}
+.skill-card .skill-outcome{color:var(--text);font-weight:700;font-size:13px;margin-top:18px}
+.skill-card .btn{margin-top:12px}
+.skill-purple{background:#eeeaff}.skill-green{background:#dff6ed}.skill-blue{background:#e1f0ff}.skill-pink{background:#fce9f1}.skill-orange{background:#fff0d9}
+body.dark .skill-purple{background:#302d53}body.dark .skill-green{background:#1d4039}body.dark .skill-blue{background:#203852}body.dark .skill-pink{background:#45283a}body.dark .skill-orange{background:#493824}
+.career-banner{padding:25px;border-radius:18px;background:linear-gradient(125deg,var(--light),var(--surface));border:1px solid var(--border);margin-bottom:20px}
+.career-banner h3{margin:0 0 5px;font-size:21px}.career-banner p{margin:0;color:var(--muted)}
+.career-toolbar{display:grid;grid-template-columns:minmax(200px,2fr) repeat(2,minmax(150px,1fr));gap:12px;background:var(--surface);border:1px solid var(--border);border-radius:15px;padding:17px;margin-bottom:20px}
+.career-toolbar input,.career-toolbar select{margin-bottom:0}.toolbar-field{min-width:0}
+.result-line{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin:16px 0}
+.career-card{transition:transform .2s,border-color .2s;display:flex;flex-direction:column}
+.career-card .career-card-description{flex:1}.career-card h3{font-size:19px}
+.career-card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.career-card-icon{font-size:31px}
+.level-label{font-size:11px;font-weight:700;padding:5px 9px;border-radius:20px;background:#e4f7ef;color:#16865b;white-space:nowrap}
+.career-card .btn{align-self:flex-start;margin-top:15px}
+.detail-layout{display:grid;grid-template-columns:1.5fr 1fr;gap:20px}
+.detail-panel{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:22px}
+.detail-panel h3{margin-top:0}.detail-panel li{margin:7px 0}
+.career-meta{display:flex;flex-wrap:wrap;gap:7px;margin:13px 0}
+.meta-pill{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:7px 10px;font-size:12px}
+.career-finder-hero{padding:25px;border-radius:18px;background:linear-gradient(125deg,#5144d8,#8c78ee);color:#fff;margin-bottom:20px}
+.career-finder-hero h3{margin:0 0 6px;font-size:23px}.career-finder-hero p{margin:0;opacity:.93}
+.finder-layout{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+.finder-form{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:22px}
+.finder-form .btn{width:100%;margin-top:7px}
+.interest-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:8px 0 16px}
+.interest-option{display:flex;align-items:center;gap:8px;border:1px solid var(--border);border-radius:10px;padding:10px;font-size:13px;cursor:pointer}
+.interest-option:has(input:checked){border-color:var(--primary);background:var(--light)}
+.interest-option input{width:auto;margin:0}
+.match-score{display:flex;align-items:center;gap:14px;padding:14px;background:var(--bg);border-radius:12px;margin:15px 0}
+.match-circle{width:65px;height:65px;flex-shrink:0;border-radius:50%;display:grid;place-items:center;border:5px solid var(--primary);font-size:17px;font-weight:800}
+.match-score p{margin:2px 0;color:var(--muted);font-size:13px}
+.recommendation-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:22px;box-shadow:var(--shadow)}
+.recommendation-card h3{margin:4px 0}
+.recommendation-kicker{font-size:11px;letter-spacing:1px;text-transform:uppercase;font-weight:800;color:var(--primary)}
+.company-list{padding-left:20px}.company-list li{margin:6px 0}
+footer strong{color:var(--primary)}
+
+/* Resume builder */
+.resume-intro{padding:25px;border-radius:18px;background:linear-gradient(125deg,var(--light),var(--surface));border:1px solid var(--border);margin-bottom:20px}
+.resume-intro h3{margin:0 0 6px}.resume-intro p{margin:0;color:var(--muted)}
+.resume-form-card h3{margin-top:0}.resume-preview{white-space:pre-wrap;line-height:1.8;min-height:400px}
+.resume-photo-control{padding:15px;background:var(--bg);border:1px dashed var(--border);border-radius:12px}
+.resume-photo-control input{margin-bottom:0}
+.resume-template-buttons{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.resume-template-buttons button{flex:1;min-width:100px}
+.resume-template-buttons button.selected{background:var(--primary);color:white}
+.resume-live-preview{background:#fff;color:#202844;border-radius:12px;border:1px solid #e3e7f0;padding:30px;margin-top:18px;min-height:400px;overflow-wrap:anywhere}
+.resume-live-preview h2{margin:0;font-size:27px}
+.resume-live-preview h3{font-size:14px;margin:22px 0 8px;padding-bottom:5px;border-bottom:1px solid #dce1ec;letter-spacing:.5px}
+.resume-live-preview p{margin:5px 0;white-space:pre-wrap}
+.resume-live-preview .resume-contact{color:#59647a;font-size:12px;margin-top:8px}
+.resume-live-preview .resume-header{display:flex;align-items:center;gap:18px;padding-bottom:18px;border-bottom:2px solid #6254e8}
+.resume-live-preview .resume-photo{width:95px;height:110px;object-fit:cover;border-radius:8px;border:1px solid #ddd;flex-shrink:0}
+.resume-live-preview .resume-section-content{font-size:13px;line-height:1.65}
+.resume-template-classic{font-family:Georgia,"Times New Roman",serif}
+.resume-live-preview.resume-template-classic .resume-header{border-bottom:2px solid #333}
+.resume-live-preview.resume-template-classic h3{border-bottom:1px solid #777;color:#222}
+.resume-live-preview.resume-template-minimal{font-family:Arial,Helvetica,sans-serif}
+.resume-live-preview.resume-template-minimal .resume-header{border-bottom:1px solid #ddd}
+.resume-live-preview.resume-template-minimal h3{border-bottom:0;color:#6254e8;letter-spacing:1px}
+@media(max-width:850px){.navbar{align-items:flex-start;flex-direction:column}.nav-links{width:100%}.career-toolbar{grid-template-columns:1fr 1fr}.career-toolbar .toolbar-field:first-child{grid-column:1/-1}.finder-layout{grid-template-columns:1fr}}
+@media(max-width:600px){.container{padding:22px 14px}.hero{padding:40px 20px}.form-grid,.detail-layout{grid-template-columns:1fr}.full-width{grid-column:auto}.section-heading h2{font-size:24px}.career-toolbar{grid-template-columns:1fr}.career-toolbar .toolbar-field:first-child{grid-column:auto}.interest-grid{grid-template-columns:1fr 1fr}.navbar{padding:12px 14px}.nav-links a,.nav-links button{font-size:12px;padding:7px}.resume-live-preview{padding:18px}.resume-live-preview .resume-header{gap:12px}.resume-live-preview .resume-photo{width:75px;height:90px}}
+</style>
+</head>
+<body>
+<header>
+<nav class="navbar" aria-label="Main navigation">
+<a class="brand" href="#home">SkillBridge <span>AI</span></a>
+<div class="nav-links">
+<a href="#home" data-page="home">Home</a><a href="#profile" data-page="profile">Profile</a><a href="#skills" data-page="skills">Skills</a><a href="#careers" data-page="careers">Explore Careers</a><a href="#career-finder" data-page="career-finder">Career Finder</a><a href="#roadmap" data-page="roadmap">Roadmap</a><a href="#quiz" data-page="quiz">Daily Quiz</a><a href="#dashboard" data-page="dashboard">Progress</a><a href="#study-materials" data-page="study-materials">Study Materials</a><a href="#resume" data-page="resume">Resume</a><button type="button" id="themeToggle">🌙 Theme</button>
+</div>
+</nav>
+</header>
+
+<main class="container">
+<section id="home" class="app-section">
+<div class="hero"><div class="eyebrow">Your learning and career companion</div><h1>Build Skills. Discover Your Future.</h1><p id="welcomeText">Explore career paths, develop in-demand skills, and take your next step with SkillBridge AI.</p></div>
+</section>
+
+<section id="profile" class="app-section">
+<div class="section-heading"><h2>👤 My Profile</h2><p>Keep your student information and career interests up to date.</p></div>
+<div class="card"><form id="profileForm"><div class="form-grid">
+<div><label for="studentName">Full Name</label><input id="studentName" placeholder="Enter your name" required></div>
+<div><label for="education">Education</label><input id="education" placeholder="e.g. BCA, BSc, BCom"></div>
+<div><label for="studentSkills">Current Skills</label><input id="studentSkills" placeholder="e.g. Python, Java, communication"></div>
+<div><label for="careerGoal">Career Goal</label><select id="careerGoal"><option value="">Choose a career goal</option><option>Software Developer</option><option>Data Analyst</option><option>AI/ML Engineer</option><option>Web Developer</option><option>Cybersecurity Analyst</option><option>UI/UX Designer</option><option>Business Analyst</option></select></div>
+<div class="full-width"><label for="interests">Interests</label><textarea id="interests" placeholder="What subjects or activities interest you?"></textarea></div>
+</div><div class="btn-row"><button class="btn" type="submit">Save Profile</button><button class="btn secondary" type="button" id="editProfile">Edit Profile</button></div><p id="profileMessage" class="feedback" role="status"></p></form></div>
+</section>
+
+<section id="thought" class="app-section">
+<div class="section-heading"><h2>💡 Daily Thought</h2><p>A little encouragement for your learning journey.</p></div>
+<div class="card quote-card"><div class="card-icon">🌟</div><p id="dailyQuote">Small steps every day lead to big achievements.</p><button type="button" class="btn secondary" id="newQuote">Show Another Thought</button></div>
+</section>
+
+<section id="skills" class="app-section">
+<div class="section-heading"><div class="eyebrow" style="color:var(--primary)">CAREER DEVELOPMENT</div><h2>Skills to Build</h2><p class="skills-intro">Choose a skill area to discover related careers, essential skills, and organisations to research.</p></div>
+<div class="grid">
+<article class="skill-card"><div class="skill-top"><div class="skill-icon skill-purple">💻</div><div><div class="skill-number">01 / TECHNICAL</div><h3>Software Development</h3></div></div><p>Learn programming, problem-solving, and how to build useful applications.</p><span class="tag">C / C++</span><span class="tag">Java</span><span class="tag">Python</span><span class="tag">DSA</span><p class="skill-outcome">Focus: Coding and application development</p><button class="btn secondary explore-skill" data-skill="software" type="button">Explore Options →</button></article>
+<article class="skill-card"><div class="skill-top"><div class="skill-icon skill-green">📊</div><div><div class="skill-number">02 / ANALYTICS</div><h3>Data Analytics</h3></div></div><p>Analyse information, identify patterns, and build meaningful dashboards.</p><span class="tag">SQL</span><span class="tag">Excel</span><span class="tag">Tableau</span><p class="skill-outcome">Focus: Data insights and visualisation</p><button class="btn secondary explore-skill" data-skill="data" type="button">Explore Options →</button></article>
+<article class="skill-card"><div class="skill-top"><div class="skill-icon skill-blue">🌐</div><div><div class="skill-number">03 / DEVELOPMENT</div><h3>Web Development</h3></div></div><p>Create responsive websites and interactive web experiences.</p><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span><p class="skill-outcome">Focus: Websites and web applications</p><button class="btn secondary explore-skill" data-skill="web" type="button">Explore Options →</button></article>
+<article class="skill-card"><div class="skill-top"><div class="skill-icon skill-pink">🤖</div><div><div class="skill-number">04 / EMERGING TECHNOLOGY</div><h3>AI & Machine Learning</h3></div></div><p>Explore intelligent systems, datasets, and machine learning models.</p><span class="tag">Python</span><span class="tag">Statistics</span><span class="tag">Machine Learning</span><p class="skill-outcome">Focus: AI foundations and data-driven projects</p><button class="btn secondary explore-skill" data-skill="ai" type="button">Explore Options →</button></article>
+<article class="skill-card"><div class="skill-top"><div class="skill-icon skill-orange">🤝</div><div><div class="skill-number">05 / CAREER READINESS</div><h3>Professional Skills</h3></div></div><p>Build communication, teamwork, critical thinking, and interview skills.</p><span class="tag">Communication</span><span class="tag">Teamwork</span><span class="tag">Interviews</span><p class="skill-outcome">Focus: Workplace readiness and confidence</p><button class="btn secondary explore-skill" data-skill="professional" type="button">Explore Options →</button></article>
+</div>
+<div id="skillExplorer" class="card hidden" style="margin-top:22px"><div class="section-heading"><h2 id="skillExplorerTitle">Explore Your Options</h2><p id="skillExplorerDescription"></p></div><label for="skillRole">Choose a related career option</label><select id="skillRole"></select><label for="skillInterest">What kind of work interests you most?</label><select id="skillInterest"><option value="building">Building things and solving problems</option><option value="data">Working with data and finding patterns</option><option value="creative">Creative work and design</option><option value="people">Helping people and working in teams</option><option value="research">Researching and learning new technology</option><option value="business">Business, clients, and communication</option></select><label for="skillExperience">Your current experience</label><select id="skillExperience"><option>Beginner</option><option>Some experience</option><option>Intermediate</option></select><button class="btn" id="recommendSkill" type="button">Suggest My Career Match</button><div id="skillRecommendation" class="notice hidden" aria-live="polite"></div></div>
+</section>
+
+<section id="careers" class="app-section">
+<div class="section-heading"><div class="eyebrow" style="color:var(--primary)">CAREER EXPLORATION</div><h2>🧭 Explore Careers</h2><p>Compare career paths, understand required skills, and find a starting point for your learning journey.</p></div>
+<div class="career-banner"><h3>Your future has more than one path.</h3><p>Search roles by name or skill, filter by career area, and open a career profile to explore its learning roadmap.</p></div>
+<div class="career-toolbar"><div class="toolbar-field"><label for="careerSearch">Search careers or skills</label><input id="careerSearch" type="search" placeholder="e.g. Python, design, analyst"></div><div class="toolbar-field"><label for="careerCategory">Career area</label><select id="careerCategory"><option value="all">All career areas</option><option value="development">Software & Web</option><option value="data">Data & Analytics</option><option value="ai">AI & Machine Learning</option><option value="security">Cybersecurity</option><option value="design">Design</option><option value="business">Business</option></select></div><div class="toolbar-field"><label for="careerSort">Sort careers</label><select id="careerSort"><option value="default">Recommended order</option><option value="az">Name: A–Z</option></select></div></div>
+<div class="result-line"><strong id="careerResultCount">7 career paths</strong><button type="button" class="btn secondary" id="clearCareerFilters">Clear Filters</button></div><div class="grid" id="careerGrid"></div><div id="careerDetails" class="card hidden" style="margin-top:22px"></div>
+</section>
+
+<section id="career-finder" class="app-section">
+<div class="section-heading"><div class="eyebrow" style="color:var(--primary)">PERSONALISED CAREER DISCOVERY</div><h2>🎯 Career Finder</h2><p>Build a starting profile and compare career suggestions that align with your interests.</p></div>
+<div class="career-finder-hero"><h3>Find a direction that fits you.</h3><p>Tell us what you enjoy, what you already know, and how much experience you have. SkillBridge AI will suggest career paths to investigate.</p></div>
+<div class="finder-layout"><div class="finder-form"><h3>Build your career profile</h3><p class="muted">Choose the options that best describe you.</p>
+<label>Which areas interest you? Select all that apply.</label><div class="interest-grid">
+<label class="interest-option"><input type="checkbox" name="finderInterest" value="coding" checked> 💻 Coding</label><label class="interest-option"><input type="checkbox" name="finderInterest" value="data"> 📊 Data & numbers</label><label class="interest-option"><input type="checkbox" name="finderInterest" value="ai"> 🤖 AI & technology</label><label class="interest-option"><input type="checkbox" name="finderInterest" value="design"> 🎨 Design</label><label class="interest-option"><input type="checkbox" name="finderInterest" value="security"> 🔐 Security</label><label class="interest-option"><input type="checkbox" name="finderInterest" value="business"> 🤝 Business & people</label></div>
+<label for="careerLevel">Current experience level</label><select id="careerLevel"><option value="Beginner">Beginner — I am just starting</option><option value="Some experience">Some experience — I have practised</option><option value="Intermediate">Intermediate — I have built projects</option></select>
+<label for="finderStrength">What is your strongest area right now?</label><select id="finderStrength"><option value="learning">I am still exploring my strengths</option><option value="programming">Programming and logic</option><option value="analysis">Analysis and problem-solving</option><option value="creativity">Creativity and visual thinking</option><option value="communication">Communication and teamwork</option><option value="research">Research and learning</option></select>
+<label for="finderWorkStyle">How would you prefer to work?</label><select id="finderWorkStyle"><option value="any">I am open to different work styles</option><option value="technical">Technical problem-solving</option><option value="creative">Creative and user-focused work</option><option value="analytical">Analysing information and patterns</option><option value="people">Working with people and business teams</option></select>
+<button class="btn" id="findCareer" type="button">✨ Generate My Career Matches</button><p class="small-note">Your answers are used in this browser to generate guidance, not a formal assessment.</p></div>
+<div><div id="careerRecommendation" class="recommendation-card"><div class="card-icon">🧭</div><h3>Your career matches will appear here</h3><p class="muted">Choose your interests and select “Generate My Career Matches” to see suggested roles, skills to develop, and companies to research.</p><div class="notice">Tip: You do not need to know your perfect career yet. Start by exploring what you enjoy learning and doing.</div></div></div></div>
+</section>
+
+<section id="roadmap" class="app-section"><div class="section-heading"><h2>🗺️ Learning Roadmap</h2><p>Choose a career to see a suggested learning path.</p></div><div class="card"><label for="roadmapCareer">Choose Career</label><select id="roadmapCareer"><option>Software Developer</option><option>Data Analyst</option><option>AI/ML Engineer</option><option>Web Developer</option><option>Cybersecurity Analyst</option><option>UI/UX Designer</option><option>Business Analyst</option></select><button class="btn" id="showRoadmap" type="button">Show Roadmap</button><div id="roadmapContent"></div></div></section>
+
+<section id="quiz" class="app-section"><div class="section-heading"><h2>🧠 Daily Skill Quiz</h2><p>Practise questions and check your understanding.</p></div><div class="card"><div id="quizContent"></div><div class="btn-row"><button class="btn" id="checkQuiz" type="button">Check Answers</button><button class="btn secondary" id="nextQuiz" type="button">Next Quiz</button></div><p id="quizFeedback" class="feedback" role="status"></p></div></section>
+
+<section id="dashboard" class="app-section"><div class="section-heading"><h2>📈 Learning Progress</h2><p>Your progress is stored in this browser on this device.</p></div><div class="grid"><div class="card"><h3>Quiz Questions Answered</h3><div id="answeredCount" style="font-size:32px;font-weight:800">0</div></div><div class="card"><h3>Correct Answers</h3><div id="correctCount" style="font-size:32px;font-weight:800">0</div></div><div class="card"><h3>Accuracy</h3><div id="accuracyCount" style="font-size:32px;font-weight:800">0%</div><div class="progress-track"><div id="accuracyBar" class="progress-fill"></div></div></div></div><div class="card" style="margin-top:18px"><h3>Learning Tips</h3><ul><li>Study a little every day.</li><li>Build small projects to practise.</li><li>Review incorrect quiz answers.</li><li>Keep your resume updated with genuine skills and projects.</li></ul><button class="btn secondary" id="resetProgress" type="button">Reset Quiz Progress</button></div></section>
+
+<section id="study-materials" class="app-section">
+<div class="section-heading"><h2>📚 Study Materials</h2><p>Useful learning websites for subjects and career goals.</p></div>
+<input id="studyMaterialSearch" type="search" placeholder="Search Python, Java, DBMS, AI/ML, OS...">
+<div class="grid" id="studyMaterialsGrid">
+<article class="card study-material-card" data-search="python programming beginner"><div class="card-icon">🐍</div><h3>Python Programming</h3><p>Learn syntax, conditions, loops, functions, and data structures.</p><span class="tag">Programming</span><div class="btn-row"><a class="btn" href="https://docs.python.org/3/tutorial/" target="_blank" rel="noopener noreferrer">Learn Python ↗</a></div></article>
+<article class="card study-material-card" data-search="java programming object oriented"><div class="card-icon">☕</div><h3>Java Programming</h3><p>Explore Java fundamentals and object-oriented programming.</p><span class="tag">Programming</span><div class="btn-row"><a class="btn" href="https://dev.java/learn/" target="_blank" rel="noopener noreferrer">Learn Java ↗</a></div></article>
+<article class="card study-material-card" data-search="c cpp c++ programming"><div class="card-icon">💻</div><h3>C and C++</h3><p>Practise variables, loops, functions, pointers, and problem-solving.</p><span class="tag">Programming</span><div class="btn-row"><a class="btn" href="https://www.learn-c.org/" target="_blank" rel="noopener noreferrer">Learn C ↗</a><a class="btn secondary" href="https://www.learncpp.com/" target="_blank" rel="noopener noreferrer">Learn C++ ↗</a></div></article>
+<article class="card study-material-card" data-search="html css javascript web development"><div class="card-icon">🌐</div><h3>Web Development</h3><p>Learn HTML, CSS, and JavaScript to build websites.</p><span class="tag">Web</span><div class="btn-row"><a class="btn" href="https://developer.mozilla.org/en-US/docs/Learn" target="_blank" rel="noopener noreferrer">Start Learning ↗</a></div></article>
+<article class="card study-material-card" data-search="dbms database sql"><div class="card-icon">🗄️</div><h3>DBMS and SQL</h3><p>Study databases, queries, joins, keys, and normalization.</p><span class="tag">Database</span><div class="btn-row"><a class="btn" href="https://www.w3schools.com/sql/" target="_blank" rel="noopener noreferrer">Learn SQL ↗</a></div></article>
+<article class="card study-material-card" data-search="data structures algorithms dsa"><div class="card-icon">🧩</div><h3>Data Structures & Algorithms</h3><p>Practise arrays, linked lists, stacks, queues, trees, and sorting.</p><span class="tag">DSA</span><div class="btn-row"><a class="btn" href="https://www.geeksforgeeks.org/data-structures/" target="_blank" rel="noopener noreferrer">Study DSA ↗</a></div></article>
+<article class="card study-material-card" data-search="artificial intelligence machine learning ai ml"><div class="card-icon">🤖</div><h3>AI and Machine Learning</h3><p>Explore machine learning concepts, datasets, and beginner projects.</p><span class="tag">AI / ML</span><div class="btn-row"><a class="btn" href="https://www.kaggle.com/learn" target="_blank" rel="noopener noreferrer">Kaggle Learn ↗</a></div></article>
+<article class="card study-material-card" data-search="operating system os linux"><div class="card-icon">⚙️</div><h3>Operating Systems</h3><p>Review processes, memory management, scheduling, and Linux basics.</p><span class="tag">OS</span><div class="btn-row"><a class="btn" href="https://linuxjourney.com/" target="_blank" rel="noopener noreferrer">Learn Linux ↗</a></div></article>
+<article class="card study-material-card" data-search="computer networks cn tcp ip osi"><div class="card-icon">🌍</div><h3>Computer Networks</h3><p>Understand network types, OSI layers, TCP/IP, and network devices.</p><span class="tag">Networking</span><div class="btn-row"><a class="btn" href="https://www.geeksforgeeks.org/computer-network-tutorials/" target="_blank" rel="noopener noreferrer">Study Networks ↗</a></div></article>
+<article class="card study-material-card" data-search="tableau data analytics visualization"><div class="card-icon">📊</div><h3>Tableau and Analytics</h3><p>Learn visual analytics, charts, dashboards, and data storytelling.</p><span class="tag">Analytics</span><div class="btn-row"><a class="btn" href="https://www.tableau.com/learn/training" target="_blank" rel="noopener noreferrer">Tableau Training ↗</a></div></article>
+<article class="card study-material-card" data-search="communication soft skills interview"><div class="card-icon">🗣️</div><h3>Communication Skills</h3><p>Practise communication, teamwork, and interview preparation.</p><span class="tag">Professional</span><div class="btn-row"><a class="btn" href="https://www.coursera.org/" target="_blank" rel="noopener noreferrer">Explore Courses ↗</a></div></article>
+</div><p id="noMaterials" class="notice hidden">No study materials found. Try another keyword.</p><p class="small-note">External resources may have their own fees, requirements, and availability.</p>
+</section>
+
+<!-- Updated Professional Resume Builder -->
+<section id="resume" class="app-section">
+<div class="section-heading"><h2>📄 Professional Resume Builder</h2><p>Create an internship-ready resume with a professional template and optional profile picture.</p></div>
+<div class="resume-intro"><h3>Build your professional profile.</h3><p>Enter your genuine qualifications, skills, projects, and achievements. Choose a design, preview your resume, and download a copy.</p></div>
+
+<div class="grid">
+<div class="card resume-form-card">
+<h3>📝 Resume Information</h3>
+<form id="resumeForm">
+<div class="form-grid">
+<div class="full-width"><label for="resumeName">Full Name *</label><input id="resumeName" placeholder="Enter your full name" required></div>
+<div><label for="resumeEmail">Email Address</label><input id="resumeEmail" type="email" placeholder="you@example.com"></div>
+<div><label for="resumePhone">Phone Number</label><input id="resumePhone" type="tel" placeholder="Enter phone number"></div>
+<div><label for="resumeCity">City</label><input id="resumeCity" placeholder="Your city"></div>
+<div><label for="resumeEducation">Degree / Course *</label><input id="resumeEducation" placeholder="e.g. BCA (AI & ML)" required></div>
+<div><label for="resumeCollege">College Name</label><input id="resumeCollege" placeholder="Your college"></div>
+<div><label for="resumeGraduation">Expected Graduation Year</label><input id="resumeGraduation" placeholder="e.g. 2028"></div>
+<div class="full-width"><label for="resumeObjective">Career Objective</label><textarea id="resumeObjective" placeholder="Describe your career goals and what you hope to contribute."></textarea></div>
+<div class="full-width"><label for="resumeSkills">Technical Skills</label><textarea id="resumeSkills" placeholder="e.g. Python, Java, C, C++, DBMS, Tableau"></textarea></div>
+<div class="full-width"><label for="resumeSoftSkills">Soft Skills</label><textarea id="resumeSoftSkills" placeholder="e.g. Communication, teamwork, problem-solving"></textarea></div>
+<div class="full-width"><label for="resumeProjects">Projects</label><textarea id="resumeProjects" placeholder="Project name, what you built, technologies used, and what you learned."></textarea></div>
+<div class="full-width"><label for="resumeCertifications">Certifications</label><textarea id="resumeCertifications" placeholder="List certifications you have completed."></textarea></div>
+<div class="full-width"><label for="resumeAchievements">Achievements and Activities</label><textarea id="resumeAchievements" placeholder="Academic achievements, clubs, volunteering, or relevant activities."></textarea></div>
+<div class="full-width"><label for="resumeInterests">Interests</label><textarea id="resumeInterests" placeholder="Your professional or learning interests"></textarea></div>
+<div class="full-width resume-photo-control"><label for="resumePhoto">📸 Upload Profile Picture (optional)</label><input id="resumePhoto" type="file" accept="image/*"><p class="small-note">Choose a clear photo. The image stays in your browser and is not uploaded to a server.</p><button class="btn secondary" type="button" id="removeResumePhoto">Remove Picture</button></div>
+<div class="full-width"><label>🎨 Choose Resume Template</label><div class="resume-template-buttons"><button type="button" class="btn secondary selected" data-template="modern">Modern</button><button type="button" class="btn secondary" data-template="classic">Classic</button><button type="button" class="btn secondary" data-template="minimal">Minimal</button></div><input type="hidden" id="resumeTemplate" value="modern"></div>
+</div>
+<div class="btn-row"><button class="btn" type="submit">Generate Professional Resume</button><button class="btn secondary" type="button" id="fillResumeProfile">Use Saved Profile</button></div>
+<p class="small-note">Fields marked with * are required. Include only accurate information.</p><p id="resumeMessage" class="feedback" role="status"></p>
+</form>
+</div>
+
+<div class="card"><div class="card-icon">💼</div><h3>Internship Opportunities</h3><p>Explore internship listings and check eligibility, deadlines, and requirements before applying.</p><div class="btn-row"><a class="btn" href="https://internshala.com/" target="_blank" rel="noopener noreferrer">Internshala ↗</a><a class="btn secondary" href="https://www.linkedin.com/jobs/" target="_blank" rel="noopener noreferrer">LinkedIn Jobs ↗</a><a class="btn outline" href="https://www.naukri.com/" target="_blank" rel="noopener noreferrer">Naukri ↗</a></div><div class="notice"><strong>Resume tip</strong><p>Highlight relevant coursework, personal projects, certifications, and genuine skills. You do not need previous employment to create a strong student resume.</p></div></div>
+</div>
+
+<div id="resumeOutput" class="card hidden" style="margin-top:22px">
+<div class="result-line"><div><h2 style="margin:0">Resume Preview</h2><p class="muted" style="margin:4px 0">Review your formatted resume below.</p></div><span class="tag">Internship / Fresher</span></div>
+<div id="resumeLivePreview" class="resume-live-preview resume-template-modern">
+<div class="resume-header"><img id="resumePreviewPhoto" class="resume-photo hidden" alt="Resume profile picture"><div><h2 id="previewName">Your Name</h2><p id="previewContact" class="resume-contact"></p></div></div>
+<div id="resumeVisualSections"></div>
+</div>
+<h3 style="margin-top:25px">✏️ Editable Resume Text</h3><p class="small-note">You can edit this text before copying, printing, or downloading.</p>
+<textarea id="resumeText" class="resume-preview" rows="25" aria-label="Editable professional resume preview" spellcheck="true"></textarea>
+<div class="btn-row"><button class="btn" id="downloadResume" type="button">⬇ Download Resume (.txt)</button><button class="btn secondary" id="downloadResumeHTML" type="button">Download Formatted Resume (.html)</button><button class="btn secondary" id="copyResume" type="button">Copy Resume</button><button class="btn outline" id="printResume" type="button">Print Resume</button></div>
+<p class="small-note">Open the formatted HTML file in a browser to print it or save it as a PDF.</p>
+</div>
+</section>
+</main>
+
+<footer><strong>SkillBridge AI</strong><p>Learn • Practise • Grow</p><p class="small-note">A student learning project. Career suggestions are for guidance only.</p></footer>
+
+<script>
+"use strict";
+const $=id=>document.getElementById(id);
+const quotes=[
+"Small steps every day lead to big achievements.",
+"Your future grows with the skills you practise today.",
+"Mistakes are proof that you are learning.",
+"Stay curious, keep practising, and trust your progress.",
+"You do not need to know everything. Start with one thing.",
+"Consistency is more powerful than waiting for motivation."
+];
+const careers={
+"Software Developer":{icon:"💻",category:"development",level:"Beginner friendly",description:"Design, build, test, and maintain software applications.",skills:["Programming","Data Structures","Problem-solving"],strengths:["programming","research"],work:"technical",steps:["Learn Python, Java, or C++.","Practise conditions, loops, functions, and OOP.","Study data structures, algorithms, and databases.","Build two small projects and learn Git.","Prepare a resume and apply for beginner internships."]},
+"Data Analyst":{icon:"📊",category:"data",level:"Beginner friendly",description:"Use data to discover patterns and help people make decisions.",skills:["Excel","SQL","Statistics","Tableau"],strengths:["analysis","research"],work:"analytical",steps:["Learn spreadsheet formulas and data cleaning.","Study basic statistics.","Learn SQL queries, joins, and grouping.","Build dashboards with Tableau or another tool.","Publish projects and explain your insights."]},
+"AI/ML Engineer":{icon:"🤖",category:"ai",level:"Build foundations first",description:"Build systems that learn from data and make predictions.",skills:["Python","Maths","Statistics","Machine Learning"],strengths:["programming","research"],work:"technical",steps:["Learn Python fundamentals.","Study basic statistics and algebra.","Practise with datasets and visualisations.","Learn introductory machine learning concepts.","Create a small project and explain its limitations."]},
+"Web Developer":{icon:"🌐",category:"development",level:"Beginner friendly",description:"Create websites and web applications for users.",skills:["HTML","CSS","JavaScript","Git"],strengths:["programming","creativity"],work:"creative",steps:["Learn HTML and page structure.","Practise CSS and responsive design.","Learn JavaScript and the DOM.","Build a responsive portfolio project.","Learn Git and publish your project."]},
+"Cybersecurity Analyst":{icon:"🔐",category:"security",level:"Build foundations first",description:"Help protect systems, networks, and information.",skills:["Networking","Linux","Security Fundamentals"],strengths:["programming","analysis","research"],work:"technical",steps:["Understand operating systems and networking.","Learn Linux commands and basic scripting.","Study security principles and permissions.","Practise only in legal cybersecurity labs.","Document your projects and learning."]},
+"UI/UX Designer":{icon:"🎨",category:"design",level:"Beginner friendly",description:"Design digital experiences that are useful and easy to use.",skills:["Research","Wireframes","Prototyping","Visual Design"],strengths:["creativity","communication"],work:"creative",steps:["Learn design principles and visual hierarchy.","Study user needs and usability research.","Create wireframes for an application.","Build a prototype and test it with users.","Create a portfolio explaining your decisions."]},
+"Business Analyst":{icon:"📈",category:"business",level:"Beginner friendly",description:"Understand business needs and help teams solve problems.",skills:["Communication","Analysis","Excel","Documentation"],strengths:["communication","analysis"],work:"people",steps:["Learn how businesses define goals and problems.","Practise Excel and data analysis.","Learn process mapping and documentation.","Create a case study with recommendations.","Practise presentations and interviews."]}
+};
+const skillOptions={
+software:{title:"Software Development",description:"Explore coding-related roles and choose the work that interests you.",roles:[
+{role:"Software Developer",career:"Software Developer",interest:"building",skills:"Java or Python, DSA, OOP, Git",companies:["TCS","Infosys","Microsoft","Accenture","Zoho"]},
+{role:"Application Developer",career:"Software Developer",interest:"building",skills:"Programming, APIs, databases, debugging",companies:["IBM","Accenture","Capgemini","Infosys","Wipro"]},
+{role:"Backend Developer",career:"Software Developer",interest:"research",skills:"Java or Python, APIs, SQL, server basics",companies:["Amazon","Microsoft","Zoho","Oracle","Freshworks"]},
+{role:"Software Testing / QA",career:"Software Developer",interest:"data",skills:"Testing basics, test cases, SQL, automation fundamentals",companies:["TCS","Infosys","Accenture","IBM","Wipro"]}]},
+data:{title:"Data Analytics",description:"Choose between reporting, business insights, and working directly with data.",roles:[
+{role:"Junior Data Analyst",career:"Data Analyst",interest:"data",skills:"Excel, SQL, data cleaning, charts",companies:["Deloitte","Accenture","TCS","Infosys","IBM"]},
+{role:"Business Intelligence Analyst",career:"Data Analyst",interest:"business",skills:"SQL, Tableau or Power BI, dashboards",companies:["Microsoft","Amazon","Deloitte","IBM","Accenture"]},
+{role:"Reporting Analyst",career:"Data Analyst",interest:"data",skills:"Excel, SQL, accuracy, reporting",companies:["Infosys","Wipro","TCS","Capgemini","Accenture"]},
+{role:"Data Visualisation Analyst",career:"Data Analyst",interest:"creative",skills:"Tableau, chart design, data storytelling",companies:["Tableau/Salesforce","Deloitte","IBM","Accenture","Microsoft"]}]},
+web:{title:"Web Development",description:"Explore building the visible part of websites or the systems behind them.",roles:[
+{role:"Frontend Developer",career:"Web Developer",interest:"creative",skills:"HTML, CSS, JavaScript, responsive design",companies:["Microsoft","Amazon","Zoho","Freshworks","Accenture"]},
+{role:"Backend Developer",career:"Software Developer",interest:"building",skills:"JavaScript or Python, APIs, databases",companies:["Amazon","IBM","Oracle","Zoho","Infosys"]},
+{role:"Full-Stack Developer",career:"Web Developer",interest:"building",skills:"Frontend, backend, databases, Git",companies:["TCS","Infosys","Accenture","Capgemini","Freshworks"]},
+{role:"UI Developer",career:"Web Developer",interest:"creative",skills:"HTML, CSS, JavaScript, accessibility",companies:["Wipro","Accenture","Zoho","IBM","Infosys"]}]},
+ai:{title:"AI & Machine Learning",description:"Explore AI, machine learning, and data-focused roles. Many roles require strong foundations and projects.",roles:[
+{role:"Junior Machine Learning Engineer",career:"AI/ML Engineer",interest:"research",skills:"Python, statistics, ML basics, projects",companies:["Microsoft","Amazon","Google","IBM","Accenture"]},
+{role:"AI Application Developer",career:"AI/ML Engineer",interest:"building",skills:"Python, APIs, data handling, AI fundamentals",companies:["Microsoft","Google","IBM","Infosys","TCS"]},
+{role:"Data Science Intern",career:"AI/ML Engineer",interest:"data",skills:"Python, statistics, data analysis, visualisation",companies:["Deloitte","IBM","Accenture","Amazon","Microsoft"]},
+{role:"AI Research Assistant",career:"AI/ML Engineer",interest:"research",skills:"Maths, Python, reading research, experiments",companies:["Google","Microsoft","IBM","Amazon","University research labs"]}]},
+professional:{title:"Professional Skills",description:"Explore roles that use communication, organisation, analysis, and teamwork.",roles:[
+{role:"Business Analyst",career:"Business Analyst",interest:"business",skills:"Communication, Excel, documentation, analysis",companies:["Deloitte","Accenture","TCS","Infosys","Capgemini"]},
+{role:"Project Coordinator",career:"Business Analyst",interest:"people",skills:"Organisation, communication, planning, teamwork",companies:["TCS","Wipro","IBM","Accenture","Infosys"]},
+{role:"Digital Marketing Analyst",career:"Business Analyst",interest:"creative",skills:"Communication, analytics, content, marketing basics",companies:["Deloitte Digital","Accenture","Google","WPP","Publicis Groupe"]},
+{role:"Customer Success Associate",career:"Business Analyst",interest:"people",skills:"Communication, problem-solving, product knowledge",companies:["Freshworks","Zoho","Microsoft","Salesforce","IBM"]}]}
+};
+let selectedSkill="software",currentQuiz=0,quizChecked=false;
+function loadProgress(){try{const p=JSON.parse(localStorage.getItem("skillBridgeProgress")||"{}");return{answered:Number(p.answered)||0,correct:Number(p.correct)||0,completed:Array.isArray(p.completed)?p.completed:[]}}catch{return{answered:0,correct:0,completed:[]}}}
+let quizProgress=loadProgress();
+function saveProgress(){try{localStorage.setItem("skillBridgeProgress",JSON.stringify(quizProgress))}catch{}}
+function loadProfile(){try{return JSON.parse(localStorage.getItem("skillBridgeProfile")||"{}")}catch{return{}}}
+
+function showPage(id){
+ const homePages=["home","profile","thought"];
+ const valid=[...homePages,"skills","careers","career-finder","roadmap","quiz","dashboard","study-materials","resume"];
+ if(!valid.includes(id))id="home";
+ document.querySelectorAll(".app-section").forEach(s=>s.classList.remove("active"));
+ (id==="home"?homePages:[id]).forEach(p=>$(p)?.classList.add("active"));
+ document.querySelectorAll(".nav-links a").forEach(a=>a.classList.toggle("current",a.dataset.page===id));
+ document.body.classList.toggle("home-view",id==="home");
+ history.replaceState(null,"","#"+id);window.scrollTo({top:0,behavior:"smooth"});
+}
+document.addEventListener("click",event=>{
+ const go=event.target.closest("[data-go]");
+ if(go){showPage(go.dataset.go);return}
+ const link=event.target.closest('a[href^="#"]');
+ if(!link)return;
+ const id=link.getAttribute("href").slice(1);
+ if(!$(id))return;
+ event.preventDefault();showPage(id);
+});
+function saveProfile(event){
+ event.preventDefault();
+ const p={name:$("studentName").value.trim(),education:$("education").value.trim(),skills:$("studentSkills").value.trim(),goal:$("careerGoal").value,interests:$("interests").value.trim()};
+ try{localStorage.setItem("skillBridgeProfile",JSON.stringify(p));$("profileMessage").textContent="Profile saved successfully!";$("welcomeText").textContent=p.name?"Welcome, "+p.name+"! Your learning and career journey starts here.":"Your learning and career journey starts here."}
+ catch{$("profileMessage").textContent="Unable to save. Check your browser storage settings."}
+}
+function populateProfile(){
+ const p=loadProfile();
+ $("studentName").value=p.name||"";$("education").value=p.education||"";$("studentSkills").value=p.skills||"";$("careerGoal").value=p.goal||"";$("interests").value=p.interests||"";
+ if(p.name)$("welcomeText").textContent="Welcome, "+p.name+"! Your learning and career journey starts here.";
+}
+function showRandomQuote(){const old=$("dailyQuote").textContent;let next=old;while(next===old&&quotes.length>1)next=quotes[Math.floor(Math.random()*quotes.length)];$("dailyQuote").textContent=next}
+
+function renderCareers(){
+ const grid=$("careerGrid");grid.replaceChildren();
+ const query=$("careerSearch").value.trim().toLowerCase(),category=$("careerCategory").value,sort=$("careerSort").value;
+ let entries=Object.entries(careers).filter(([name,c])=>[name,c.description,...c.skills].join(" ").toLowerCase().includes(query)&&(category==="all"||c.category===category));
+ if(sort==="az")entries.sort((a,b)=>a[0].localeCompare(b[0]));
+ $("careerResultCount").textContent=entries.length+" career path"+(entries.length===1?"":"s")+" found";
+ if(!entries.length){const m=document.createElement("div");m.className="notice";m.textContent="No careers match your search. Try another keyword or clear the filters.";grid.appendChild(m);$("careerDetails").classList.add("hidden");return}
+ entries.forEach(([name,c])=>{
+  const card=document.createElement("article");card.className="card career-card";
+  const top=document.createElement("div");top.className="career-card-top";
+  const icon=document.createElement("div");icon.className="career-card-icon";icon.textContent=c.icon;
+  const level=document.createElement("span");level.className="level-label";level.textContent=c.level;top.append(icon,level);
+  const title=document.createElement("h3");title.textContent=name;
+  const desc=document.createElement("p");desc.className="career-card-description";desc.textContent=c.description;
+  const tags=document.createElement("div");c.skills.forEach(s=>{const t=document.createElement("span");t.className="tag";t.textContent=s;tags.appendChild(t)});
+  const btn=document.createElement("button");btn.className="btn secondary";btn.type="button";btn.textContent="View Career Profile →";btn.addEventListener("click",()=>showCareerDetails(name));
+  card.append(top,title,desc,tags,btn);grid.appendChild(card);
+ });
+}
+function showCareerDetails(name){
+ const c=careers[name],panel=$("careerDetails");if(!c)return;
+ panel.replaceChildren();panel.classList.remove("hidden");
+ const h=document.createElement("h2");h.textContent=c.icon+" "+name;
+ const desc=document.createElement("p");desc.textContent=c.description;
+ const meta=document.createElement("div");meta.className="career-meta";
+ [c.level,"Learning roadmap available","Core skills: "+c.skills.length].forEach(s=>{const p=document.createElement("span");p.className="meta-pill";p.textContent=s;meta.appendChild(p)});
+ const layout=document.createElement("div");layout.className="detail-layout";
+ const left=document.createElement("div");left.className="detail-panel";
+ const sh=document.createElement("h3");sh.textContent="Skills to develop";const sl=document.createElement("ul");
+ c.skills.forEach(s=>{const li=document.createElement("li");li.textContent=s;sl.appendChild(li)});
+ const th=document.createElement("h3");th.textContent="Suggested starting steps";const tl=document.createElement("ol");
+ c.steps.forEach(s=>{const li=document.createElement("li");li.textContent=s;tl.appendChild(li)});left.append(sh,sl,th,tl);
+ const right=document.createElement("div");right.className="detail-panel";
+ const rh=document.createElement("h3");rh.textContent="Explore your next step";
+ const rp=document.createElement("p");rp.textContent="Use the learning roadmap to organise your next steps. Build practical projects and review internship requirements before applying.";
+ const rb=document.createElement("button");rb.className="btn";rb.type="button";rb.textContent="Open Learning Roadmap";rb.addEventListener("click",()=>{setRoadmapCareer(name);showPage("roadmap")});
+ const fb=document.createElement("button");fb.className="btn secondary";fb.type="button";fb.style.marginTop="10px";fb.textContent="Compare Career Matches";fb.addEventListener("click",()=>showPage("career-finder"));
+ right.append(rh,rp,rb,fb);layout.append(left,right);
+ const close=document.createElement("button");close.className="btn outline";close.type="button";close.style.marginTop="15px";close.textContent="Close Profile";close.addEventListener("click",()=>panel.classList.add("hidden"));
+ panel.append(h,desc,meta,layout,close);panel.scrollIntoView({behavior:"smooth",block:"start"});
+}
+function setRoadmapCareer(name){const option=[...$("roadmapCareer").options].find(o=>o.value===name||o.textContent===name);if(option)$("roadmapCareer").value=option.value;renderRoadmap()}
+$("careerSearch").addEventListener("input",renderCareers);$("careerCategory").addEventListener("change",renderCareers);$("careerSort").addEventListener("change",renderCareers);
+$("clearCareerFilters").addEventListener("click",()=>{$("careerSearch").value="";$("careerCategory").value="all";$("careerSort").value="default";renderCareers()});
+
+function openSkillExplorer(key){
+ selectedSkill=key;const info=skillOptions[key];$("skillExplorerTitle").textContent="Explore: "+info.title;$("skillExplorerDescription").textContent=info.description;
+ const select=$("skillRole");select.replaceChildren();
+ info.roles.forEach((r,i)=>{const o=document.createElement("option");o.value=String(i);o.textContent=r.role;select.appendChild(o)});
+ $("skillRecommendation").classList.add("hidden");$("skillExplorer").classList.remove("hidden");$("skillExplorer").scrollIntoView({behavior:"smooth",block:"start"});
+}
+document.querySelectorAll(".explore-skill").forEach(b=>b.addEventListener("click",()=>openSkillExplorer(b.dataset.skill)));
+function recommendSkill(){
+ const info=skillOptions[selectedSkill],role=info.roles[Number($("skillRole").value)||0],interest=$("skillInterest").value,experience=$("skillExperience").value,box=$("skillRecommendation");
+ box.replaceChildren();box.classList.remove("hidden");
+ const h=document.createElement("h3");h.textContent=role.role;
+ const p=document.createElement("p");p.textContent="This role may be worth exploring based on your selected skill area. Compare its day-to-day work with your interests before deciding.";
+ const fit=document.createElement("p");fit.textContent="Interest fit: "+(role.interest===interest?"Your selected interest is closely related to this role.":"This role may still suit you; explore its tasks to see whether they interest you.")+" Experience level: "+experience+".";
+ const sk=document.createElement("p");sk.textContent="Skills to develop: "+role.skills+".";
+ const ch=document.createElement("h4");ch.textContent="Companies to research";
+ const note=document.createElement("p");note.textContent="These are examples of organisations to research, not confirmed vacancies. Check official career pages for eligibility and current openings.";
+ const list=document.createElement("ul");list.className="company-list";role.companies.forEach(n=>{const li=document.createElement("li");li.textContent=n;list.appendChild(li)});
+ const rb=document.createElement("button");rb.className="btn";rb.type="button";rb.textContent="Open Learning Roadmap";rb.addEventListener("click",()=>{setRoadmapCareer(role.career);showPage("roadmap")});
+ const a=document.createElement("a");a.className="btn secondary";a.style.marginLeft="8px";a.href="https://www.linkedin.com/jobs/";a.target="_blank";a.rel="noopener noreferrer";a.textContent="Search Job Listings ↗";
+ box.append(h,p,fit,sk,ch,note,list,rb,a);
+}
+$("recommendSkill").addEventListener("click",recommendSkill);
+
+const finderRoles=[
+{name:"Software Developer",icon:"💻",category:"development",description:"Build software, solve programming problems, and develop applications.",interests:["coding"],strengths:["programming"],work:"technical",skills:["Programming fundamentals","Data structures","Git","Projects"]},
+{name:"Data Analyst",icon:"📊",category:"data",description:"Turn data into useful insights through analysis, reports, and dashboards.",interests:["data"],strengths:["analysis","research"],work:"analytical",skills:["Excel","SQL","Statistics","Tableau or Power BI"]},
+{name:"AI/ML Engineer",icon:"🤖",category:"ai",description:"Explore intelligent applications and models that learn patterns from data.",interests:["ai","coding","data"],strengths:["programming","analysis","research"],work:"technical",skills:["Python","Statistics","Machine learning","Data preparation"]},
+{name:"Web Developer",icon:"🌐",category:"development",description:"Build interactive websites and web applications for users.",interests:["coding","design"],strengths:["programming","creativity"],work:"creative",skills:["HTML","CSS","JavaScript","Responsive design"]},
+{name:"Cybersecurity Analyst",icon:"🔐",category:"security",description:"Help organisations identify security risks and protect systems and data.",interests:["security","coding"],strengths:["programming","analysis","research"],work:"technical",skills:["Networking","Linux","Security fundamentals","Scripting"]},
+{name:"UI/UX Designer",icon:"🎨",category:"design",description:"Understand user needs and design clear, useful digital experiences.",interests:["design"],strengths:["creativity","communication"],work:"creative",skills:["Design principles","Wireframes","Prototyping","User research"]},
+{name:"Business Analyst",icon:"📈",category:"business",description:"Understand business needs, analyse problems, and communicate recommendations.",interests:["business","data"],strengths:["communication","analysis"],work:"people",skills:["Communication","Excel","Documentation","Process analysis"]}
+];
+const companySuggestions={development:["TCS","Infosys","Accenture","Zoho","Microsoft"],data:["Deloitte","IBM","Accenture","TCS","Microsoft"],ai:["Microsoft","Google","IBM","Amazon","Accenture"],security:["IBM","Accenture","TCS","Wipro","Cisco"],design:["Microsoft","Adobe","Accenture","IBM","Zoho"],business:["Deloitte","Accenture","Infosys","TCS","Capgemini"]};
+function generateCareerMatches(){
+ const interests=[...document.querySelectorAll('input[name="finderInterest"]:checked')].map(i=>i.value),level=$("careerLevel").value,strength=$("finderStrength").value,work=$("finderWorkStyle").value,box=$("careerRecommendation");
+ box.replaceChildren();box.classList.add("recommendation-card");
+ if(!interests.length){const m=document.createElement("div");m.className="notice";m.textContent="Please select at least one interest to generate your career matches.";box.appendChild(m);return}
+ const scored=finderRoles.map(r=>{let score=0;const matched=r.interests.filter(i=>interests.includes(i));score+=matched.length*3;if(r.strengths.includes(strength)&&strength!=="learning")score+=2;if(work==="any"||r.work===work)score+=2;if(strength==="learning")score++;return{...r,score,matched}}).sort((a,b)=>b.score-a.score);
+ const max=Math.max(...scored.map(r=>r.score),1);
+ const intro=document.createElement("div"),k=document.createElement("div"),title=document.createElement("h3"),desc=document.createElement("p");
+ k.className="recommendation-kicker";k.textContent="YOUR PERSONAL CAREER SHORTLIST";title.textContent="Your recommended career paths";desc.className="muted";desc.textContent="These suggestions are based on your choices. Treat them as ideas to explore, not a final decision.";intro.append(k,title,desc);box.appendChild(intro);
+ const ln=document.createElement("div");ln.className="notice";ln.textContent=level==="Beginner"?"Recommended approach: start with fundamentals, short exercises, and one small project.":level==="Some experience"?"Recommended approach: strengthen your core skills and create a project you can explain.":"Recommended approach: build a portfolio, improve testing and documentation, and practise interview questions.";box.appendChild(ln);
+ scored.slice(0,3).forEach((r,i)=>{
+  const card=document.createElement("div");card.className="detail-panel";card.style.marginTop="15px";
+  const kick=document.createElement("div");kick.className="recommendation-kicker";kick.textContent=i===0?"TOP SUGGESTION":i===1?"ALTERNATIVE PATH":"ANOTHER OPTION";
+  const h=document.createElement("h3");h.textContent=r.icon+" "+r.name;
+  const score=Math.max(35,Math.min(98,Math.round(r.score/max*100)));
+  const match=document.createElement("div");match.className="match-score";
+  const circle=document.createElement("div");circle.className="match-circle";circle.textContent=score+"%";
+  const mt=document.createElement("div"),mth=document.createElement("strong"),mp=document.createElement("p");mth.textContent="Preference alignment";mp.textContent="An indicative score based on your choices, not a validated aptitude test or a job guarantee.";mt.append(mth,mp);match.append(circle,mt);
+  const p=document.createElement("p");p.textContent=r.description;
+  const related=document.createElement("p");related.textContent="Related interests: "+(r.matched.length?r.matched.join(", "):"This role may be worth comparing with your preferences")+".";
+  const st=document.createElement("strong");st.textContent="Skills to develop";
+  const tags=document.createElement("div");tags.style.margin="8px 0 14px";r.skills.forEach(s=>{const t=document.createElement("span");t.className="tag";t.textContent=s;tags.appendChild(t)});
+  const ct=document.createElement("strong");ct.textContent="Example companies to research";
+  const cp=document.createElement("p");cp.className="muted";cp.textContent=companySuggestions[r.category].join(" • ");
+  const actions=document.createElement("div");actions.className="btn-row";
+  const rb=document.createElement("button");rb.className="btn";rb.type="button";rb.textContent="View Learning Roadmap";rb.addEventListener("click",()=>{setRoadmapCareer(r.name);showPage("roadmap")});
+  const eb=document.createElement("button");eb.className="btn secondary";eb.type="button";eb.textContent="Explore Career Profile";eb.addEventListener("click",()=>{showPage("careers");$("careerSearch").value=r.name;renderCareers();showCareerDetails(r.name)});
+  actions.append(rb,eb);card.append(kick,h,match,p,related,st,tags,ct,cp,actions);box.appendChild(card);
+ });
+ const note=document.createElement("p");note.className="small-note";note.style.marginTop="16px";note.textContent="Company examples are for research only. They do not indicate current vacancies or guarantee internships. Check official company websites for real opportunities.";box.appendChild(note);
+}
+$("findCareer").addEventListener("click",generateCareerMatches);
+
+function renderRoadmap(){
+ const c=careers[$("roadmapCareer").value],container=$("roadmapContent");container.replaceChildren();if(!c)return;
+ const intro=document.createElement("p");intro.className="muted";intro.textContent="Suggested learning path. Move at your own pace and practise as you go.";container.appendChild(intro);
+ c.steps.forEach((s,i)=>{const row=document.createElement("div");row.className="roadmap-step";const n=document.createElement("div");n.className="step-number";n.textContent=String(i+1);const content=document.createElement("div"),h=document.createElement("h3"),p=document.createElement("p");h.textContent="Stage "+(i+1);p.textContent=s;content.append(h,p);row.append(n,content);container.appendChild(row)});
+}
+const quizQuestions=[
+{question:"Which language is widely used for AI and machine learning?",options:["HTML","Python","CSS","SQL only"],answer:1,explanation:"Python has a large ecosystem of machine learning libraries."},
+{question:"Which SQL command retrieves data from a table?",options:["SELECT","DELETE","DROP","UPDATE"],answer:0,explanation:"SELECT retrieves rows and columns from a database."},
+{question:"What does HTML mainly define?",options:["Database storage","Web page structure","Network routing","OS scheduling"],answer:1,explanation:"HTML defines web page structure and content."},
+{question:"Which data structure follows LIFO?",options:["Queue","Stack","Tree","Graph"],answer:1,explanation:"A stack follows Last In, First Out."},
+{question:"Which device forwards packets between networks?",options:["Keyboard","Router","Monitor","Scanner"],answer:1,explanation:"A router forwards packets between networks."},
+{question:"What is the purpose of a primary key?",options:["Style a page","Uniquely identify a row","Compress an image","Run a loop"],answer:1,explanation:"A primary key uniquely identifies each row."},
+{question:"Which CSS property changes text colour?",options:["font-style","background-image","color","display"],answer:2,explanation:"The color property sets text colour."},
+{question:"Which of these is an operating system?",options:["Linux","HTML","SQL","Tableau"],answer:0,explanation:"Linux is an operating system."},
+{question:"What does a machine learning model learn from?",options:["Only file names","Data","Keyboard colour","Screen size only"],answer:1,explanation:"Models learn patterns from data."},
+{question:"What is a good first step when building a project?",options:["Ignore the problem","Define the problem and requirements","Delete documentation","Skip testing"],answer:1,explanation:"Defining the problem helps guide the design."}
+];
+function renderQuiz(){
+ quizChecked=false;$("quizFeedback").replaceChildren();const container=$("quizContent");container.replaceChildren();
+ for(let i=0;i<3;i++){
+  const q=quizQuestions[(currentQuiz+i)%quizQuestions.length],wrap=document.createElement("div");wrap.style.marginBottom="22px";
+  const h=document.createElement("h3");h.textContent=(i+1)+". "+q.question;wrap.appendChild(h);
+  q.options.forEach((opt,j)=>{const label=document.createElement("label");label.className="quiz-option";const radio=document.createElement("input");radio.type="radio";radio.name="question-"+i;radio.value=String(j);label.append(radio,document.createTextNode(opt));wrap.appendChild(label)});
+  container.appendChild(wrap);
+ }
+}
+function checkQuiz(){
+ if(quizChecked){$("quizFeedback").textContent="You've already checked this set. Select Next Quiz to continue.";return}
+ let answered=0,correct=0,unanswered=0;const qs=[0,1,2].map(i=>quizQuestions[(currentQuiz+i)%quizQuestions.length]);
+ qs.forEach((q,i)=>{const s=document.querySelector('input[name="question-'+i+'"]:checked');if(!s){unanswered++;return}answered++;if(Number(s.value)===q.answer)correct++});
+ if(!answered){$("quizFeedback").textContent="Choose at least one answer first!";return}
+ quizChecked=true;quizProgress.answered+=answered;quizProgress.correct+=correct;quizProgress.completed.push(currentQuiz);saveProgress();updateDashboard();
+ const fb=$("quizFeedback");fb.replaceChildren();const summary=document.createElement("p");summary.textContent="You got "+correct+" out of "+answered+" answered questions correct."+(unanswered?" You left "+unanswered+" unanswered.":"");fb.appendChild(summary);
+ const details=document.createElement("div");details.className="notice";qs.forEach((q,i)=>{const s=document.querySelector('input[name="question-'+i+'"]:checked'),p=document.createElement("p");p.textContent=(s&&Number(s.value)===q.answer?"✓ ":"• ")+"Answer: "+q.options[q.answer]+". "+q.explanation;details.appendChild(p)});fb.appendChild(details);
+}
+function updateDashboard(){
+ $("answeredCount").textContent=quizProgress.answered;$("correctCount").textContent=quizProgress.correct;
+ const accuracy=quizProgress.answered?Math.round(quizProgress.correct/quizProgress.answered*100):0;$("accuracyCount").textContent=accuracy+"%";$("accuracyBar").style.width=accuracy+"%";
+}
+function filterStudyMaterials(){
+ const term=$("studyMaterialSearch").value.trim().toLowerCase();let visible=0;
+ document.querySelectorAll(".study-material-card").forEach(card=>{const matches=(card.textContent+" "+card.dataset.search).toLowerCase().includes(term);card.classList.toggle("hidden",!matches);if(matches)visible++});
+ $("noMaterials").classList.toggle("hidden",visible!==0);
+}
+
+/* Resume builder functions */
+let resumePhotoData="";
+const resumeFieldIds=["resumeName","resumeEmail","resumePhone","resumeCity","resumeEducation","resumeCollege","resumeGraduation","resumeObjective","resumeSkills","resumeSoftSkills","resumeProjects","resumeCertifications","resumeAchievements","resumeInterests"];
+function fillResumeProfile(){
+ const p=loadProfile();$("resumeName").value=p.name||"";$("resumeEducation").value=p.education||"";$("resumeSkills").value=p.skills||"";
+ $("resumeObjective").value=p.goal?"Student interested in "+p.goal+". Eager to develop practical skills, contribute to projects, and learn through internship opportunities.":"";
+ $("resumeInterests").value=p.interests||"";
+ $("resumeMessage").textContent=p.name||p.education||p.skills?"Saved profile details added. Complete the remaining fields before generating your resume.":"No saved profile found yet. Enter your details manually or save your information in the Profile section first.";
+}
+function getResumeData(){const d={};resumeFieldIds.forEach(id=>d[id]=$(id).value.trim());return d}
+function addResumeVisualSection(container,title,content){
+ if(!content)return;const h=document.createElement("h3");h.textContent=title;const p=document.createElement("p");p.className="resume-section-content";p.textContent=content;container.append(h,p);
+}
+function updateResumeVisualPreview(){
+ const d=getResumeData();$("resumeLivePreview").className="resume-live-preview resume-template-"+$("resumeTemplate").value;
+ $("previewName").textContent=d.resumeName||"Your Name";$("previewContact").textContent=[d.resumeEmail,d.resumePhone,d.resumeCity].filter(Boolean).join(" | ");
+ const photo=$("resumePreviewPhoto");if(resumePhotoData){photo.src=resumePhotoData;photo.classList.remove("hidden")}else{photo.removeAttribute("src");photo.classList.add("hidden")}
+ const visual=$("resumeVisualSections");visual.replaceChildren();
+ addResumeVisualSection(visual,"CAREER OBJECTIVE",d.resumeObjective||"Motivated student eager to apply academic knowledge, develop practical skills, and contribute to meaningful projects through internship opportunities.");
+ let edu=d.resumeEducation||"";if(d.resumeCollege)edu+="\n"+d.resumeCollege;if(d.resumeGraduation)edu+="\nExpected Graduation: "+d.resumeGraduation;
+ addResumeVisualSection(visual,"EDUCATION",edu);
+ addResumeVisualSection(visual,"TECHNICAL SKILLS",d.resumeSkills||"Add your relevant technical skills.");
+ addResumeVisualSection(visual,"PROJECTS",d.resumeProjects||"Add your academic or personal projects.");
+ addResumeVisualSection(visual,"CERTIFICATIONS",d.resumeCertifications||"Add certifications you have completed.");
+ addResumeVisualSection(visual,"SOFT SKILLS",d.resumeSoftSkills||"Add your genuine soft skills.");
+ addResumeVisualSection(visual,"ACHIEVEMENTS AND ACTIVITIES",d.resumeAchievements||"Add relevant achievements or activities.");
+ addResumeVisualSection(visual,"INTERESTS",d.resumeInterests||"Add your professional or learning interests.");
+}
+function makeResume(event){
+ if(event)event.preventDefault();const d=getResumeData();
+ if(!d.resumeName||!d.resumeEducation){$("resumeMessage").textContent="Please enter your full name and degree/course before generating your resume.";return}
+ const contact=[d.resumeEmail,d.resumePhone,d.resumeCity].filter(Boolean).join(" | ");
+ const sections=[d.resumeName.toUpperCase(),contact,"","CAREER OBJECTIVE",d.resumeObjective||"Motivated student pursuing "+d.resumeEducation+". Eager to apply academic knowledge, develop practical skills, and contribute to meaningful projects through internship opportunities.","","EDUCATION",d.resumeEducation,d.resumeCollege,d.resumeGraduation?"Expected Graduation: "+d.resumeGraduation:"","","TECHNICAL SKILLS",d.resumeSkills||"Add your relevant technical skills.","","PROJECTS",d.resumeProjects||"Add your academic or personal projects, the tools used, and what you learned.","","CERTIFICATIONS",d.resumeCertifications||"Add certifications you have actually completed.","","SOFT SKILLS",d.resumeSoftSkills||"Add your genuine soft skills.","","ACHIEVEMENTS AND ACTIVITIES",d.resumeAchievements||"Add relevant academic achievements, activities, or volunteering.","","INTERESTS",d.resumeInterests||"Add your professional or learning interests"];
+ $("resumeText").value=sections.map(line=>String(line).trim()).filter((line,index,array)=>line!==""||(index>0&&array[index-1]!=="")).join("\n");
+ $("resumeOutput").classList.remove("hidden");updateResumeVisualPreview();$("resumeMessage").textContent="Resume generated successfully! Review your preview and edit the text if needed.";$("resumeOutput").scrollIntoView({behavior:"smooth",block:"start"});
+}
+function escapeResumeHTML(value){return String(value).replace(/[&<>"']/g,char=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char]))}
+function getFormattedResumeHTML(){
+ const d=getResumeData(),template=$("resumeTemplate").value,contact=[d.resumeEmail,d.resumePhone,d.resumeCity].filter(Boolean).join(" | ");
+ const sections=[["CAREER OBJECTIVE",d.resumeObjective||"Motivated student eager to develop practical skills and contribute to meaningful projects."],["EDUCATION",[d.resumeEducation,d.resumeCollege,d.resumeGraduation?"Expected Graduation: "+d.resumeGraduation:""].filter(Boolean).join("\n")],["TECHNICAL SKILLS",d.resumeSkills],["PROJECTS",d.resumeProjects],["CERTIFICATIONS",d.resumeCertifications],["SOFT SKILLS",d.resumeSoftSkills],["ACHIEVEMENTS AND ACTIVITIES",d.resumeAchievements],["INTERESTS",d.resumeInterests]].filter(item=>item[1]);
+ const photo=resumePhotoData?'<img class="photo" src="'+resumePhotoData+'" alt="Profile picture">':"";
+ const sectionHTML=sections.map(item=>"<section><h2>"+escapeResumeHTML(item[0])+"</h2><p>"+escapeResumeHTML(item[1])+"</p></section>").join("");
+ return `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${escapeResumeHTML(d.resumeName||"Professional Resume")}</title><style>*{box-sizing:border-box}body{font-family:Arial,Helvetica,sans-serif;color:#202844;max-width:850px;margin:35px auto;padding:30px;line-height:1.6}header{display:flex;align-items:center;gap:20px;border-bottom:2px solid #6254e8;padding-bottom:18px}.photo{width:100px;height:115px;object-fit:cover;border-radius:8px}h1{font-size:28px;margin:0;overflow-wrap:anywhere}.contact{font-size:12px;color:#59647a;white-space:pre-wrap;overflow-wrap:anywhere}h2{font-size:14px;border-bottom:1px solid #dce1ec;padding-bottom:5px;margin-top:24px}section p{font-size:13px;white-space:pre-wrap;overflow-wrap:anywhere}body.classic{font-family:Georgia,"Times New Roman",serif}body.classic header{border-color:#333}body.classic h2{color:#222;border-color:#777}body.minimal header{border-color:#ddd}body.minimal h2{color:#6254e8;border:0;letter-spacing:1px}@media print{body{margin:0;padding:10mm}}</style></head><body class="${template}"><header>${photo}<div><h1>${escapeResumeHTML(d.resumeName)}</h1><p class="contact">${escapeResumeHTML(contact)}</p></div></header>${sectionHTML}</body></html>`;
+}
+async function copyResume(){
+ const text=$("resumeText").value;if(!text.trim()){$("resumeMessage").textContent="Generate your resume before copying it.";return}
+ try{await navigator.clipboard.writeText(text);$("resumeMessage").textContent="Resume copied successfully!"}
+ catch{$("resumeText").focus();$("resumeText").select();try{$("resumeMessage").textContent=document.execCommand("copy")?"Resume copied successfully!":"Press Ctrl+C to copy the selected resume text."}catch{$("resumeMessage").textContent="Press Ctrl+C to copy the selected resume text."}}
+}
+function downloadResume(){
+ const text=$("resumeText").value;if(!text.trim()){$("resumeMessage").textContent="Generate your resume before downloading it.";return}
+ const blob=new Blob([text],{type:"text/plain;charset=utf-8"}),url=URL.createObjectURL(blob),link=document.createElement("a");
+ link.href=url;link.download="SkillBridge-Professional-Resume.txt";document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);$("resumeMessage").textContent="Your resume text download has started.";
+}
+function downloadResumeHTML(){
+ const d=getResumeData();if(!d.resumeName||!d.resumeEducation){$("resumeMessage").textContent="Please enter your name and degree/course first.";return}
+ const blob=new Blob([getFormattedResumeHTML()],{type:"text/html;charset=utf-8"}),url=URL.createObjectURL(blob),link=document.createElement("a");
+ link.href=url;link.download="SkillBridge-Professional-Resume.html";document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);$("resumeMessage").textContent="Your formatted resume download has started.";
+}
+function printResume(){
+ const d=getResumeData();if(!d.resumeName||!d.resumeEducation){$("resumeMessage").textContent="Please enter your name and degree/course first.";return}
+ const win=window.open("","_blank");if(!win){$("resumeMessage").textContent="Please allow pop-ups in your browser to print your resume.";return}
+ win.document.open();win.document.write(getFormattedResumeHTML());win.document.close();
+ win.onload=function(){win.focus();win.print()};$("resumeMessage").textContent="Print window opened.";
+}
+$("resumePhoto").addEventListener("change",event=>{
+ const file=event.target.files&&event.target.files[0];if(!file)return;
+ if(!file.type.startsWith("image/")){$("resumeMessage").textContent="Please choose an image file.";event.target.value="";return}
+ if(file.size>5*1024*1024){$("resumeMessage").textContent="Please choose an image smaller than 5 MB.";event.target.value="";return}
+ const reader=new FileReader();reader.onload=()=>{resumePhotoData=String(reader.result||"");updateResumeVisualPreview();$("resumeMessage").textContent="Profile picture added to your resume preview."};reader.onerror=()=>{$("resumeMessage").textContent="Unable to read this picture. Please try another image."};reader.readAsDataURL(file);
+});
+$("removeResumePhoto").addEventListener("click",()=>{resumePhotoData="";$("resumePhoto").value="";updateResumeVisualPreview();$("resumeMessage").textContent="Profile picture removed."});
+document.querySelectorAll("[data-template]").forEach(button=>button.addEventListener("click",()=>{
+ $("resumeTemplate").value=button.dataset.template;
+ document.querySelectorAll("[data-template]").forEach(item=>item.classList.toggle("selected",item===button));
+ updateResumeVisualPreview();$("resumeMessage").textContent=button.textContent+" resume template selected.";
+}));
+resumeFieldIds.forEach(id=>$(id).addEventListener("input",()=>{if(!$("resumeOutput").classList.contains("hidden"))updateResumeVisualPreview()}));
+
+function resetProgress(){
+ if(!confirm("Reset all saved quiz progress on this browser?"))return;
+ quizProgress={answered:0,correct:0,completed:[]};saveProgress();updateDashboard();$("quizFeedback").textContent="Quiz progress has been reset.";
+}
+
+/* Event listeners */
+$("profileForm").addEventListener("submit",saveProfile);
+$("editProfile").addEventListener("click",()=>{$("studentName").focus();$("profileMessage").textContent="Edit your details and press Save Profile when finished."});
+$("newQuote").addEventListener("click",showRandomQuote);
+$("themeToggle").addEventListener("click",()=>{
+ document.body.classList.toggle("dark");const dark=document.body.classList.contains("dark");
+ $("themeToggle").textContent=dark?"☀️ Light Mode":"🌙 Theme";try{localStorage.setItem("skillBridgeTheme",dark?"dark":"light")}catch{}
+});
+$("showRoadmap").addEventListener("click",renderRoadmap);
+$("checkQuiz").addEventListener("click",checkQuiz);
+$("nextQuiz").addEventListener("click",()=>{currentQuiz=(currentQuiz+3)%quizQuestions.length;renderQuiz()});
+$("studyMaterialSearch").addEventListener("input",filterStudyMaterials);
+$("resumeForm").addEventListener("submit",makeResume);
+$("fillResumeProfile").addEventListener("click",fillResumeProfile);
+$("copyResume").addEventListener("click",copyResume);
+$("downloadResume").addEventListener("click",downloadResume);
+$("downloadResumeHTML").addEventListener("click",downloadResumeHTML);
+$("printResume").addEventListener("click",printResume);
+$("resetProgress").addEventListener("click",resetProgress);
+
+/* Start the app */
+populateProfile();renderCareers();renderRoadmap();renderQuiz();updateDashboard();
+try{if(localStorage.getItem("skillBridgeTheme")==="dark"){document.body.classList.add("dark");$("themeToggle").textContent="☀️ Light Mode"}}catch{}
+showPage(location.hash.slice(1)||"home");
+</script>
+</body>
+</html>

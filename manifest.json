@@ -1,0 +1,11 @@
+
+{
+  "name": "SkillBridge AI",
+  "short_name": "SkillBridge",
+  "description": "Explore careers, discover skills, and build your future with SkillBridge AI.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#6254E8"
+}
